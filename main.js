@@ -36,6 +36,8 @@ plane.castShadow = false;
 plane.receiveShadow = true;
 scene.add(plane);
 
+//fog
+scene.fog = new THREE.Fog( 0x000000, -100, 1000);
 
 //cube
 const geometry = new THREE.BoxGeometry(5, 5, 5);
