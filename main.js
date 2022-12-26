@@ -1,8 +1,12 @@
 //scene, camera, renderer
-let scene, camera, renderer;
+let scene, camera, renderer, canvas;
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-renderer = new THREE.WebGLRenderer( { antialias: true } );
+canvas = document.createElement('canvas');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+document.body.appendChild(canvas);
+renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas } );
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 camera.position.set (0, 20, 200);
@@ -111,33 +115,40 @@ tetrisLoader2.load('model/nicolec_assignment02_tetris/nicolec_assignment02_tetri
     scene.add(model);
 });
 
-// small block
-const tetrisLoader3 = new THREE.GLTFLoader();
-tetrisLoader3.load('model/cubo_bedlam_figura_f7/cubo_bedlam_figura_f7.glb', (gltf) => {
-  const model = gltf.scene;
-  model.position.y = 500;
-  model.rotation.x = Math.PI / 2;
-  model.castShadow = true;
-  model.receiveShadow = true;
-  model.scale.x = model.scale.y = model.scale.z = 0.15;
-  scene.add(model);
+// small blocks
+const modelFiles = [
+    'model/cubo_bedlam_f9/cubo_bedlam_f9.glb',
+    'model/cubo_bedlam_f11/cubo_bedlam_f11.glb',
+    'model/cubo_bedlam_figura_f7/cubo_bedlam_figura_f7.glb'];
 
-  setTimeout(() => {
-    scene.remove(model);
-  }, 500);
-
-  function addModel() {
-    const instance = model.clone();
-    instance.position.x = Math.random() * 500 - 200;
-    instance.position.y = Math.random() * 500 - 200;
-    instance.position.z = Math.random() * 500 - 200;
-    scene.add(instance);
+modelFiles.forEach((modelFile) => {
+  const tetrisLoader = new THREE.GLTFLoader();
+  tetrisLoader.load(modelFile, (gltf) => {
+    const model = gltf.scene;
+    model.position.y = 500;
+    model.rotation.x = Math.PI / 2;
+    model.castShadow = true;
+    model.receiveShadow = true;
+    model.scale.x = model.scale.y = model.scale.z = 0.15;
+    scene.add(model);
 
     setTimeout(() => {
-      scene.remove(instance);
+      scene.remove(model);
     }, 500);
-  }
-  setInterval(addModel, 10);
+
+    function addModel() {
+      const instance = model.clone();
+      instance.position.x = Math.random() * 500 - 200;
+      instance.position.y = Math.random() * 500 - 50;
+      instance.position.z = Math.random() * 500 - 200;
+      scene.add(instance);
+
+      setTimeout(() => {
+        scene.remove(instance);
+      }, 500);
+    }
+    setInterval(addModel, 100);
+  });
 });
 
 // Movement - CAM#2 operator
@@ -181,3 +192,25 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
+
+//inne - Opis
+const openButton = document.getElementById('openDialogButton');
+const closeButton = document.getElementById('closeDialogButton');
+const dialog = document.getElementById('myDialog');
+openButton.addEventListener('click', function() {
+    // Open the dialog
+    dialog.show();
+  });
+  closeButton.addEventListener('click', function() {
+    dialog.close();
+  });
+
+//inne - Dźwięk on/off
+const onButton = document.getElementById('soundON');
+const offButton = document.getElementById('soundOFF');
+onButton.addEventListener('click', function() {
+    Korebeiniki.resume();
+  });
+offButton.addEventListener('click', function() {
+    Korebeiniki.pause();
+  });

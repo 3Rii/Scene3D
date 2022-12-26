@@ -8,16 +8,36 @@
     <title>Tetris</title>
 </head>
 <body>
-    <!--Three.js-->
-    <script src="https://cdn.jsdelivr.net/npm/three/build/three.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three/examples/js/Detector.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/howler/dist/howler.core.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/ColladaLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three/examples/js/controls/TrackballControls.js"></script>
-    <!--Cannon-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
-    <!--Script-->
-    <script src="main.js"></script>
+<dialog id="myDialog">
+    <button id="closeDialogButton">Close</button>
+    <h1>Scena3D w motywie Tetris</h1>
+    <p>Sterowanie po płaszczyźnie: strzałki</p>
+    <p>Rozglądanie się ruch kamery: mysz</p>
+    <p>Zoom +/-: scroll</p>
+</dialog>
+<!--SIDEBAR-->
+<div class="navbar bg-dark fixed-bottom nav-pills nav-fill">
+    <div class="nav-item">
+        <button class="btn btn-success" id="soundON">Sound on</button>
+        <button class="btn btn-success" id="soundOFF">Sound off</button>
+    </div>
+    <div class="nav-item">
+        <button class="btn btn-success" id="openDialogButton">Opis</button>
+    </div>
+
+</div>
+
+<!--SCRIPTS-->
+<!--Three.js-->
+<script src="https://cdn.jsdelivr.net/npm/three/build/three.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three/examples/js/Detector.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/howler/dist/howler.core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/ColladaLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three/examples/js/controls/TrackballControls.js"></script>
+<!--Cannon-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+<!--Script-->
+<script src="main.js"></script>
 </body>
 </html>
