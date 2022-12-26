@@ -7,22 +7,23 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 camera.position.set (0, 0, 100);
 
-//TrollbackControls
+//TrollbackControls - CAM#1 operator
 const controls = new THREE.TrackballControls(camera, renderer.domElement);
 
 //Korebeiniki
-const audioListener = new THREE.AudioListener();
-camera.add (audioListener);
-const Korebeiniki = new THREE.Audio(audioListener);
-Korebeiniki.loop = true;
-scene.add(Korebeiniki);
-const soundLoader = new THREE.AudioLoader();
-soundLoader.load(
-    'https://upload.wikimedia.org/wikipedia/commons/e/e5/Tetris_theme.ogg',
-    function (audioBuffer){
-    Korebeiniki.setBuffer(audioBuffer);
-    Korebeiniki.play();
-    });
+// const audioListener = new THREE.AudioListener();
+// camera.add (audioListener);
+// const Korebeiniki = new THREE.Audio(audioListener);
+// Korebeiniki.loop = true;
+// Korebeiniki.volume = 0.5;
+// scene.add(Korebeiniki);
+// const soundLoader = new THREE.AudioLoader();
+// soundLoader.load(
+//     'https://upload.wikimedia.org/wikipedia/commons/e/e5/Tetris_theme.ogg',
+//     function (audioBuffer){
+//     Korebeiniki.setBuffer(audioBuffer);
+//     Korebeiniki.play();
+//     });
 
 //Clock, Light
 clock = new THREE.Clock();
@@ -64,6 +65,7 @@ scene.add(plane);
 //fog
 scene.fog = new THREE.Fog( 0x000000, -500, 1000);
 
+// MODELE
 //Tetris
 const tetrisLoader = new THREE.GLTFLoader();
 tetrisLoader.load('model/nicolec_assignment02_tetris/nicolec_assignment02_tetris.glb', function ( gltf ) {
@@ -75,9 +77,43 @@ tetrisLoader.load('model/nicolec_assignment02_tetris/nicolec_assignment02_tetris
     scene.add(model);
 });
 
+// Movement - CAM#2 operator
+let movementDirection = { x: 0, z: 0 };
+
+document.addEventListener("keydown", function(event) {
+  switch (event.keyCode) {
+    case 37: // left arrow key
+      movementDirection.x = -1;
+      break;
+    case 38: // up arrow key
+      movementDirection.z = -1;
+      break;
+    case 39: // right arrow key
+      movementDirection.x = 1;
+      break;
+    case 40: // down arrow key
+      movementDirection.z = 1;
+      break;
+  }
+});
+document.addEventListener("keyup", function(event) {
+  switch (event.keyCode) {
+    case 37: // left arrow key
+    case 39: // right arrow key
+      movementDirection.x = 0;
+      break;
+    case 38: // up arrow key
+    case 40: // down arrow key
+      movementDirection.z = 0;
+      break;
+  }
+});
+
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
+    camera.position.x += movementDirection.x;
+    camera.position.z += movementDirection.z;
     renderer.render(scene, camera);
 }
 
