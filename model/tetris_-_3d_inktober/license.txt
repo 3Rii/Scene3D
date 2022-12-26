@@ -1,0 +1,11 @@
+Model Information:
+* title:	Tetris - 3D Inktober
+* source:	https://sketchfab.com/3d-models/tetris-3d-inktober-ca79abf8a1c34b2d96241716204f34b1
+* author:	hairzerow (https://sketchfab.com/hairzerow)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Tetris - 3D Inktober" (https://sketchfab.com/3d-models/tetris-3d-inktober-ca79abf8a1c34b2d96241716204f34b1) by hairzerow (https://sketchfab.com/hairzerow) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

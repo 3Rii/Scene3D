@@ -5,34 +5,41 @@ camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight,
 renderer = new THREE.WebGLRenderer( { antialias: true } );
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-camera.position.set (0, 0, 100);
+camera.position.set (0, 20, 200);
 
 //TrollbackControls - CAM#1 operator
 const controls = new THREE.TrackballControls(camera, renderer.domElement);
 
 //Korebeiniki
-// const audioListener = new THREE.AudioListener();
-// camera.add (audioListener);
-// const Korebeiniki = new THREE.Audio(audioListener);
-// Korebeiniki.loop = true;
-// Korebeiniki.volume = 0.5;
-// scene.add(Korebeiniki);
-// const soundLoader = new THREE.AudioLoader();
-// soundLoader.load(
-//     'https://upload.wikimedia.org/wikipedia/commons/e/e5/Tetris_theme.ogg',
-//     function (audioBuffer){
-//     Korebeiniki.setBuffer(audioBuffer);
-//     Korebeiniki.play();
-//     });
+const audioListener = new THREE.AudioListener();
+camera.add (audioListener);
+const Korebeiniki = new THREE.Audio(audioListener);
+Korebeiniki.loop = true;
+Korebeiniki.volume = 0.5;
+scene.add(Korebeiniki);
+const soundLoader = new THREE.AudioLoader();
+soundLoader.load(
+    'https://upload.wikimedia.org/wikipedia/commons/e/e5/Tetris_theme.ogg',
+    function (audioBuffer){
+    Korebeiniki.setBuffer(audioBuffer);
+    Korebeiniki.play();
+    });
 
 //Clock, Light
 clock = new THREE.Clock();
 const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
-hemiLight.position.set( 100, -50, 100 );
+hemiLight.position.set( 0, -50, 1000 );
 scene.add( hemiLight );
 
 const dirLight = new THREE.DirectionalLight( 0xffffff );
-dirLight.position.set( 50, -50, 100 );
+dirLight.position.set( 0, 10000, 10000 );
+dirLight.castShadow = true;
+dirLight.shadow.camera.top = 1000;
+dirLight.shadow.camera.bottom = - 1000;
+dirLight.shadow.camera.left = - 1000;
+dirLight.shadow.camera.right = 1000;
+dirLight.shadow.camera.near = 0.1;
+dirLight.shadow.camera.far = 2000;
 dirLight.castShadow = true;
 scene.add( dirLight );
 
@@ -66,15 +73,71 @@ scene.add(plane);
 scene.fog = new THREE.Fog( 0x000000, -500, 1000);
 
 // MODELE
-//Tetris
+//Tetris Animated
 const tetrisLoader = new THREE.GLTFLoader();
-tetrisLoader.load('model/nicolec_assignment02_tetris/nicolec_assignment02_tetris.glb', function ( gltf ) {
+tetrisLoader.load('model/tetris_-_3d_inktober/tetris_-_3d_inktober.glb', function ( gltf ) {
     const model = gltf.scene;
-    model.position.set(0, -50, 0);
+    model.position.set(0, -40, 0);
+    model.rotation.y = Math.PI / 2;
     model.castShadow = true;
     model.receiveShadow = true;
-    model.scale.x = model.scale.y = model.scale.z = 1000;
+    model.scale.x = model.scale.y = model.scale.z = 8;
+    const animations = gltf.animations;
+    const mixer = new THREE.AnimationMixer(model);
+    const actions = [];
+    for (let i = 0; i < animations.length; i++) {
+      const animation = animations[i];
+      const action = mixer.clipAction(animation);
+      actions.push(action);
+    }
+    actions[0].setEffectiveTimeScale(0.000001);
+    actions[0].play();
+    function update(time) {
+      requestAnimationFrame(update);
+      mixer.update(time);
+    }
+    requestAnimationFrame(update);
+
     scene.add(model);
+});
+//Block behind
+const tetrisLoader2 = new THREE.GLTFLoader();
+tetrisLoader2.load('model/nicolec_assignment02_tetris/nicolec_assignment02_tetris.glb', function ( gltf ) {
+    const model = gltf.scene;
+    model.position.set(0, -50, -500);
+    model.castShadow = true;
+    model.receiveShadow = true;
+    model.scale.x = model.scale.y = model.scale.z = 10000;
+    scene.add(model);
+});
+
+// small block
+const tetrisLoader3 = new THREE.GLTFLoader();
+tetrisLoader3.load('model/cubo_bedlam_figura_f7/cubo_bedlam_figura_f7.glb', (gltf) => {
+  const model = gltf.scene;
+  model.position.y = 500;
+  model.rotation.x = Math.PI / 2;
+  model.castShadow = true;
+  model.receiveShadow = true;
+  model.scale.x = model.scale.y = model.scale.z = 0.15;
+  scene.add(model);
+
+  setTimeout(() => {
+    scene.remove(model);
+  }, 500);
+
+  function addModel() {
+    const instance = model.clone();
+    instance.position.x = Math.random() * 500 - 200;
+    instance.position.y = Math.random() * 500 - 200;
+    instance.position.z = Math.random() * 500 - 200;
+    scene.add(instance);
+
+    setTimeout(() => {
+      scene.remove(instance);
+    }, 500);
+  }
+  setInterval(addModel, 10);
 });
 
 // Movement - CAM#2 operator
@@ -96,6 +159,7 @@ document.addEventListener("keydown", function(event) {
       break;
   }
 });
+
 document.addEventListener("keyup", function(event) {
   switch (event.keyCode) {
     case 37: // left arrow key
@@ -116,5 +180,4 @@ function animate() {
     camera.position.z += movementDirection.z;
     renderer.render(scene, camera);
 }
-
 animate();

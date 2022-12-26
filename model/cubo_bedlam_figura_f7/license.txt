@@ -1,0 +1,11 @@
+Model Information:
+* title:	Cubo BEDLAM Figura F7
+* source:	https://sketchfab.com/3d-models/cubo-bedlam-figura-f7-646c1dc3210b45bd8dd5eea318c1335e
+* author:	tatorresj (https://sketchfab.com/tatorresj)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Cubo BEDLAM Figura F7" (https://sketchfab.com/3d-models/cubo-bedlam-figura-f7-646c1dc3210b45bd8dd5eea318c1335e) by tatorresj (https://sketchfab.com/tatorresj) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	NicoleC Assignment02 Tetris
+* source:	https://sketchfab.com/3d-models/nicolec-assignment02-tetris-be0b79a78e794e8ca7afeca36ec9e4a8
+* author:	nicolesierra (https://sketchfab.com/nicolesierra)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "NicoleC Assignment02 Tetris" (https://sketchfab.com/3d-models/nicolec-assignment02-tetris-be0b79a78e794e8ca7afeca36ec9e4a8) by nicolesierra (https://sketchfab.com/nicolesierra) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
