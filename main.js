@@ -36,13 +36,13 @@ hemiLight.position.set( 0, -50, 1000 );
 scene.add( hemiLight );
 
 const dirLight = new THREE.DirectionalLight( 0xffffff );
-dirLight.position.set( 0, 10000, 10000 );
+dirLight.position.set( 0, 1000, 1000 );
 dirLight.castShadow = true;
-dirLight.shadow.camera.top = 1000;
-dirLight.shadow.camera.bottom = - 1000;
-dirLight.shadow.camera.left = - 1000;
-dirLight.shadow.camera.right = 1000;
-dirLight.shadow.camera.near = 0.1;
+dirLight.shadow.camera.top = 2000;
+dirLight.shadow.camera.bottom = - 50;
+dirLight.shadow.camera.left = - 2000;
+dirLight.shadow.camera.right = 2000;
+dirLight.shadow.camera.near = 0.001;
 dirLight.shadow.camera.far = 2000;
 dirLight.castShadow = true;
 scene.add( dirLight );
@@ -152,21 +152,21 @@ modelFiles.forEach((modelFile) => {
 });
 
 // Movement - CAM#2 operator
-let movementDirection = { x: 0, z: 0 };
+let movementDirection = { x: 0, y: 0 };
 
 document.addEventListener("keydown", function(event) {
   switch (event.keyCode) {
     case 37: // left arrow key
-      movementDirection.x = -1;
+      movementDirection.x = -2;
       break;
     case 38: // up arrow key
-      movementDirection.z = -1;
+      movementDirection.y = -2;
       break;
     case 39: // right arrow key
-      movementDirection.x = 1;
+      movementDirection.x = 2;
       break;
     case 40: // down arrow key
-      movementDirection.z = 1;
+      movementDirection.y = 2;
       break;
   }
 });
@@ -174,12 +174,16 @@ document.addEventListener("keydown", function(event) {
 document.addEventListener("keyup", function(event) {
   switch (event.keyCode) {
     case 37: // left arrow key
+      movementDirection.x = 0;
+      break;
     case 39: // right arrow key
       movementDirection.x = 0;
       break;
     case 38: // up arrow key
+      movementDirection.y = 0;
+      break;
     case 40: // down arrow key
-      movementDirection.z = 0;
+      movementDirection.y = 0;
       break;
   }
 });
@@ -188,7 +192,7 @@ function animate() {
     requestAnimationFrame(animate);
     controls.update();
     camera.position.x += movementDirection.x;
-    camera.position.z += movementDirection.z;
+    camera.position.y += movementDirection.y;
     renderer.render(scene, camera);
 }
 animate();
@@ -209,7 +213,7 @@ openButton.addEventListener('click', function() {
 const onButton = document.getElementById('soundON');
 const offButton = document.getElementById('soundOFF');
 onButton.addEventListener('click', function() {
-    Korebeiniki.resume();
+    Korebeiniki.play();
   });
 offButton.addEventListener('click', function() {
     Korebeiniki.pause();

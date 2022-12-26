@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <!--Bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <title>Tetris</title>
 </head>
 <body>
 <dialog id="myDialog">
     <button id="closeDialogButton">Close</button>
     <h1>Scena3D w motywie Tetris</h1>
-    <p>Sterowanie po płaszczyźnie: strzałki</p>
-    <p>Rozglądanie się ruch kamery: mysz</p>
-    <p>Zoom +/-: scroll</p>
+    <h3>Sterowanie kamerą (względem obserwatora):</h3>
+    <p>Wolno osie x/y: strzałki</p>
+    <p>Szybko osie x/y: LPM+ruch kursorem</p>
+    <p>Zoom +/- (oś z): scroll</p>
 </dialog>
 <!--SIDEBAR-->
 <div class="navbar bg-dark fixed-bottom nav-pills nav-fill">
@@ -24,7 +24,6 @@
     <div class="nav-item">
         <button class="btn btn-success" id="openDialogButton">Opis</button>
     </div>
-
 </div>
 
 <!--SCRIPTS-->
