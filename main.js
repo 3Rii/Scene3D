@@ -10,6 +10,15 @@ camera.position.set (0, 0, 100);
 //TrollbackControls
 const controls = new THREE.TrackballControls(camera, renderer.domElement);
 
+//Korebeiniki
+let sound;
+sound = new Howl({
+    url: 'sound/Tetris.mp3',
+    autoplay: true,
+    loop: true,
+    volume:0.5
+});
+
 //skyBox - City
 scene.background = new THREE.CubeTextureLoader().load([
     "skybox/north.jpg",
@@ -39,11 +48,23 @@ scene.add(plane);
 //fog
 scene.fog = new THREE.Fog( 0x000000, -100, 1000);
 
-//cube
-const geometry = new THREE.BoxGeometry(5, 5, 5);
-const material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+//Tetris
+const tetrisLoader = new THREE.GLTFLoader();
+tetrisLoader.load('model/cubo_bedlam_f12.glb', function ( gltf ) {
+    const model = gltf.scene;
+
+    // model.traverse( function ( object ) {
+    //     if (object.THREE.isMesh ) object.castShadow = true;
+    // })
+    scene.add( model );
+});
+    // model.traverse(function (child) {
+    //     if (child instanceof THREE.SkinnedMesh) {
+    //         const animation = new THREE.Animation(child, child.geometry.animation);
+    //         animation.play();
+    //     }
+    // })
+    // model.scale.x = model.scale.y = model.scale.z = 50;
 
 function animate() {
     requestAnimationFrame(animate);
