@@ -11,13 +11,18 @@ camera.position.set (0, 0, 100);
 const controls = new THREE.TrackballControls(camera, renderer.domElement);
 
 //Korebeiniki
-let sound;
-sound = new Howl({
-    url: 'sound/Tetris.mp3',
-    autoplay: true,
-    loop: true,
-    volume:0.5
-});
+const audioListener = new THREE.AudioListener();
+camera.add (audioListener);
+const Korebeiniki = new THREE.Audio(audioListener);
+Korebeiniki.loop = true;
+scene.add(Korebeiniki);
+const soundLoader = new THREE.AudioLoader();
+soundLoader.load(
+    'https://upload.wikimedia.org/wikipedia/commons/e/e5/Tetris_theme.ogg',
+    function (audioBuffer){
+    Korebeiniki.setBuffer(audioBuffer);
+    Korebeiniki.play();
+    });
 
 //Clock, Light
 clock = new THREE.Clock();
