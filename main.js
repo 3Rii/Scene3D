@@ -2,7 +2,7 @@
 let scene, camera, renderer;
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-renderer = new THREE.WebGLRenderer();
+renderer = new THREE.WebGLRenderer( { antialias: true } );
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 camera.position.set (0, 0, 100);
@@ -18,6 +18,27 @@ sound = new Howl({
     loop: true,
     volume:0.5
 });
+
+clock = new THREE.Clock();
+
+scene = new THREE.Scene();
+scene.background = new THREE.Color( 0xa0a0a0 );
+scene.fog = new THREE.Fog( 0xa0a0a0, 10, 50 );
+
+const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
+hemiLight.position.set( 0, 20, 0 );
+scene.add( hemiLight );
+
+const dirLight = new THREE.DirectionalLight( 0xffffff );
+dirLight.position.set( - 3, 10, - 10 );
+dirLight.castShadow = true;
+dirLight.shadow.camera.top = 2;
+dirLight.shadow.camera.bottom = - 2;
+dirLight.shadow.camera.left = - 2;
+dirLight.shadow.camera.right = 2;
+dirLight.shadow.camera.near = 0.1;
+dirLight.shadow.camera.far = 40;
+scene.add( dirLight );
 
 //skyBox - City
 scene.background = new THREE.CubeTextureLoader().load([
@@ -50,21 +71,12 @@ scene.fog = new THREE.Fog( 0x000000, -100, 1000);
 
 //Tetris
 const tetrisLoader = new THREE.GLTFLoader();
-tetrisLoader.load('model/cubo_bedlam_f12.glb', function ( gltf ) {
+tetrisLoader.load('model/nicolec_assignment02_tetris/nicolec_assignment02_tetris.glb', function ( gltf ) {
     const model = gltf.scene;
-
-    // model.traverse( function ( object ) {
-    //     if (object.THREE.isMesh ) object.castShadow = true;
-    // })
-    scene.add( model );
+    model.position.set(-200, -50, -400);
+    model.scale.x = model.scale.y = model.scale.z = 5000;
+    scene.add(model);
 });
-    // model.traverse(function (child) {
-    //     if (child instanceof THREE.SkinnedMesh) {
-    //         const animation = new THREE.Animation(child, child.geometry.animation);
-    //         animation.play();
-    //     }
-    // })
-    // model.scale.x = model.scale.y = model.scale.z = 50;
 
 function animate() {
     requestAnimationFrame(animate);
